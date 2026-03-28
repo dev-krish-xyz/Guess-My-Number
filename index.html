@@ -3,16 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Number Game</title>
+    <title>Guess My Number!</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div id="confetti-container"></div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="stat-item">🔥 <span id="streak">0</span> Streak</div>
+      <div class="stat-item">🎮 <span id="total-games">0</span> Games</div>
+      <div class="stat-item">🏆 <span id="total-wins">0</span> Wins</div>
+    </div>
+
     <div class="main">
       <div class="header-container flex">
         <div class="header flex">
           <span>Guess My Number!</span>
-          <span class="subheader">(between 1 and 20)</span>
+          <span class="subheader" id="range-label">(between 1 and 20)</span>
         </div>
+      </div>
+
+      <!-- Difficulty Selector -->
+      <div class="difficulty-container flex">
+        <button class="diff-btn active" data-diff="easy">Easy</button>
+        <button class="diff-btn" data-diff="medium">Medium</button>
+        <button class="diff-btn" data-diff="hard">Hard</button>
       </div>
 
       <div class="secret-container">
@@ -20,20 +36,25 @@
         <div class="secret-box flex">?</div>
       </div>
 
-      <div class="input-container flex">
-        <div class="input-container">
-          <input type="number" class="input-box" placeholder="Number"/>
+      <div class="input-row flex">
+        <div class="input-group flex">
+          <input type="number" class="input-box" placeholder="Number" />
+          <button class="hint-btn" title="Hint: costs 3 pts">💡</button>
         </div>
         <div class="message flex">Start guessing...🤔</div>
       </div>
 
       <div class="bottom-container flex">
-        <div class="check-container"><button class="check-btn">Check!</button></div>
-        <div class="score-container flex">
-          <div class="score">Score: 20</div>
-          <div class="highscore">Highscore: 0</div>
+        <div class="check-container">
+          <button class="check-btn">Check!</button>
         </div>
-        <div class="again-container"><button class="again-btn"> Try Again!</button></div>
+        <div class="score-container flex">
+          <div class="score">Score: <span id="score-val">20</span></div>
+          <div class="highscore">Best: <span id="high-val">0</span></div>
+        </div>
+        <div class="again-container">
+          <button class="again-btn">Try Again!</button>
+        </div>
       </div>
     </div>
 

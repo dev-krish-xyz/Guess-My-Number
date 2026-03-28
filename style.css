@@ -5,54 +5,118 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   background-color: rgba(0, 0, 0, 0.9);
   transition: background-color 2s ease;
   color: white;
   font-family: "Press Start 2P";
   width: 100%;
-  height: 100%;
-  /* overflow:hidden; */
+  min-height: 100vh;
 }
+
+/* ── Stats Bar ─────────────────────────────────────────────────────────────── */
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4vw;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.55rem;
+  letter-spacing: 0.05em;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.stat-item span {
+  color: #f7c948;
+  min-width: 1.5ch;
+  text-align: center;
+}
+
+/* ── Layout ────────────────────────────────────────────────────────────────── */
 .main {
-  height: 100%;
   width: 100%;
 }
+
 .flex {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+/* ── Header ────────────────────────────────────────────────────────────────── */
 .header-container {
   position: relative;
   margin-top: 3vw;
   width: 100%;
 }
+
 .header {
   height: auto;
   flex-direction: column;
   border-radius: 5px;
   padding: 10px 0;
   gap: 1vw;
-  box-shadow: 0px 8px 32px rgba(255,255,255,0.1);
+  box-shadow: 0px 8px 32px rgba(255, 255, 255, 0.1);
   background-color: #60b346;
-}
-.header:first-child {
+  transition: background-color 0.3s ease;
   text-align: center;
-  font-size:2.5vw;
-  width: 80% ;
+  font-size: 2.5vw;
+  width: 80%;
 }
+
 .subheader {
   font-size: 1.7vw;
   width: 70%;
 }
 
+/* ── Difficulty Selector ───────────────────────────────────────────────────── */
+.difficulty-container {
+  gap: 1.2vw;
+  margin: 2.5vw 0 0;
+}
+
+.diff-btn {
+  padding: 8px 22px;
+  font-family: "Press Start 2P";
+  font-size: 0.6rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.diff-btn:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.diff-btn.active {
+  background: #60b346;
+  color: white;
+  border-color: #60b346;
+  box-shadow: 0 0 12px rgba(96, 179, 70, 0.6);
+}
+
+/* ── Secret Box ────────────────────────────────────────────────────────────── */
 .secret-container {
   width: 100%;
   margin: 7vh 0;
   position: relative;
   height: 10vh;
 }
+
 .line {
   width: 100%;
   background-color: white;
@@ -62,6 +126,7 @@ body {
   transform: translateY(-50%);
   overflow: hidden;
 }
+
 .secret-box {
   height: 7rem;
   width: 8rem;
@@ -72,14 +137,21 @@ body {
   left: calc(50% - 3.2rem);
   transform: translateY(-50%);
   font-size: 2.5rem;
+  transition: box-shadow 0.3s ease, outline 0.3s ease;
 }
 
-.input-container {
+/* ── Input Row ─────────────────────────────────────────────────────────────── */
+.input-row {
   position: relative;
   margin: 20px 0;
   gap: 1vw;
   justify-content: space-around;
 }
+
+.input-group {
+  gap: 8px;
+}
+
 .input-box {
   height: 4.063rem;
   width: 8rem;
@@ -88,44 +160,78 @@ body {
   font-family: "Press Start 2P";
   text-align: center;
 }
-.input-box::placeholder{
+
+.input-box::placeholder {
   font-size: 0.938rem;
   color: grey;
   padding-left: 8px;
   opacity: 1;
   transition: opacity 0.3s ease;
 }
+
 .input-box:focus::placeholder,
 .input-box:not(:placeholder-shown)::placeholder {
   opacity: 0;
 }
 
+/* ── Hint Button ───────────────────────────────────────────────────────────── */
+.hint-btn {
+  height: 4.063rem;
+  width: 3.2rem;
+  font-size: 1.3rem;
+  background: rgba(255, 200, 0, 0.12);
+  border: 2px solid rgba(255, 200, 0, 0.3);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.hint-btn:hover:not(:disabled) {
+  background: rgba(255, 200, 0, 0.25);
+  border-color: #f7c948;
+  box-shadow: 0 0 10px rgba(247, 201, 72, 0.5);
+  transform: scale(1.05);
+}
+
+.hint-btn.used,
+.hint-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Message ───────────────────────────────────────────────────────────────── */
 .message {
   text-align: center;
-  width:auto;
-  min-width:3rem;
+  width: auto;
+  min-width: 3rem;
   height: 1rem;
   font-size: 0.938rem;
   background-color: #ffffff1d;
   padding: 2vw;
   border-radius: 5px;
   line-height: 5vw;
+  transition: background-color 0.3s ease;
 }
 
+/* ── Bottom Bar ────────────────────────────────────────────────────────────── */
 .bottom-container {
   width: 100%;
   justify-content: space-around;
   margin: 6vw 0;
   position: relative;
-  gap:3vw;
-  /* overflow-x: hidden; */
-  /* flex-shrink: 1; */
+  gap: 3vw;
 }
+
 .check-container {
-  /* padding-left: 8.7vw; */
   width: 30%;
   height: 100%;
 }
+
 .check-btn {
   height: 65%;
   width: 100%;
@@ -136,6 +242,14 @@ body {
   font-family: "Press Start 2P";
   border-right: 2px solid black;
   border-bottom: 2px solid black;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.check-btn:disabled,
+.again-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .score-container {
@@ -143,16 +257,17 @@ body {
   flex-direction: row;
   font-size: 0.8rem;
   gap: 1.5vw;
-  /* padding-right: 90px; */
 }
-.score-container .highscore{
- min-width: 10rem;
+
+.score-container .highscore {
+  min-width: 10rem;
 }
-.again-container{
-    /* padding-right: 60px; */
-    width: 30%;
-    height: 100%;
+
+.again-container {
+  width: 30%;
+  height: 100%;
 }
+
 .again-btn {
   height: 65%;
   width: 100%;
@@ -161,9 +276,11 @@ body {
   color: white;
   font-size: 0.9rem;
   font-family: "Press Start 2P";
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* vibration */
+/* ── Input States ──────────────────────────────────────────────────────────── */
 .correct {
   box-shadow: 0 0 15px #60b346;
   outline: 2px solid #60b346;
@@ -178,62 +295,146 @@ body {
   transition: all 0.3s ease;
 }
 
+/* ── Animations ────────────────────────────────────────────────────────────── */
 @keyframes vibrate {
-  0% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(-2px, -2px); }
-  60% { transform: translate(2px, 2px); }
-  80% { transform: translate(2px, -2px); }
+  0%   { transform: translate(0); }
+  20%  { transform: translate(-2px, 2px); }
+  40%  { transform: translate(-2px, -2px); }
+  60%  { transform: translate(2px, 2px); }
+  80%  { transform: translate(2px, -2px); }
   100% { transform: translate(0); }
 }
 
 @keyframes pop {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.4); }
-  100% { transform: scale(1); }
+  0%   { transform: translateY(-50%) scale(1); }
+  50%  { transform: translateY(-50%) scale(1.4); }
+  100% { transform: translateY(-50%) scale(1); }
 }
 
 .pop {
   animation: pop 0.4s ease;
 }
 
-@media (max-width: 480px) {
+/* Game-over reveal for secret box */
+.secret-box.reveal {
+  outline: 3px solid #e94f4f;
+  box-shadow: 0 0 20px rgba(233, 79, 79, 0.7);
+  animation: revealPop 0.5s ease;
+}
 
-  .header-container{
+@keyframes revealPop {
+  0%   { transform: translateY(-50%) scale(0.6); opacity: 0; }
+  60%  { transform: translateY(-50%) scale(1.15); opacity: 1; }
+  100% { transform: translateY(-50%) scale(1); opacity: 1; }
+}
+
+/* ── Confetti ──────────────────────────────────────────────────────────────── */
+#confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+  overflow: hidden;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -12px;
+  animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+  0%   { transform: translateY(0) rotate(0deg);    opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+}
+
+/* ── High Score Banner ─────────────────────────────────────────────────────── */
+.new-highscore-banner {
+  position: fixed;
+  top: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #f7c948;
+  color: #1a1a1a;
+  padding: 14px 30px;
+  font-family: "Press Start 2P";
+  font-size: 0.75rem;
+  border-radius: 5px;
+  z-index: 1000;
+  white-space: nowrap;
+  box-shadow: 0 0 24px rgba(247, 201, 72, 0.7);
+  animation: bannerIn 0.4s ease both, bannerOut 0.35s ease 2.3s forwards;
+}
+
+@keyframes bannerIn {
+  from { opacity: 0; transform: translateX(-50%) scale(0.5); }
+  to   { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+@keyframes bannerOut {
+  from { opacity: 1; transform: translateX(-50%) scale(1); }
+  to   { opacity: 0; transform: translateX(-50%) scale(0.8); }
+}
+
+/* ── Responsive (mobile) ───────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .stats-bar {
+    font-size: 0.45rem;
+    gap: 5vw;
+    padding: 8px 10px;
+  }
+
+  .header-container {
     margin-top: 12vw;
   }
-  .header{
+
+  .header {
     padding: 5vw 3vw;
     gap: 2.5vw;
-  }
-  .header:first-child{
     font-size: 1rem;
   }
-  .header .subheader{
+
+  .header .subheader {
     font-size: 0.6rem;
   }
-  .input-box{
-    width: 11rem;
+
+  .difficulty-container {
+    gap: 2vw;
+    margin: 3vw 0 0;
   }
-  .input-container {
-    flex-direction:column-reverse;
+
+  .diff-btn {
+    padding: 7px 12px;
+    font-size: 0.5rem;
+  }
+
+  .input-row {
+    flex-direction: column-reverse;
     gap: 1.5rem;
     align-items: center;
   }
 
-  .message {
+  .input-box {
+    width: 11rem;
+  }
 
+  .message {
     height: 15vw;
     width: 90%;
     font-size: 0.8rem;
     text-align: center;
+    line-height: 1.8;
   }
 
   .secret-box {
     font-size: 2rem;
     width: 7rem;
     height: 6rem;
-      box-shadow: 0px 8px 32px rgba(255,255,255,0.4);
+    box-shadow: 0px 8px 32px rgba(255, 255, 255, 0.4);
     border: 2px solid black;
   }
 
@@ -249,7 +450,14 @@ body {
     width: 100%;
     padding: 7vw 7vw;
   }
+
+  .check-container,
+  .again-container {
+    width: 80%;
+  }
+
+  .new-highscore-banner {
+    font-size: 0.6rem;
+    padding: 12px 20px;
+  }
 }
-
-
-
